@@ -17,7 +17,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:template match="text()"/>
 
 <xsl:template match="/">	
-<fo:root>
+<fo:root>	
 
 <!-- Initial document layout -->
 <fo:layout-master-set>
@@ -71,12 +71,12 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:block>
 
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Host Features
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -98,254 +98,260 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
   <fo:table-body>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Created at:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Address:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/address" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           MAC:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/mac" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           State:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/state" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           OS Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/os-name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           OS Flavor:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/os-flavor" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           OS Version:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/os-sp" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           OS Language:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/os-lang" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Architecture:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/arch" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Purpose:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/purpose" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Information:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/info" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Comments:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/comments" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Virtual Host:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/virtual-host" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Vulnerabilities:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/vuln-count" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Services:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/service-count" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
          Exploits Tried: 
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/exploit-attempt-count" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Credentials Count:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/cred-count" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           OS Family:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/os-family" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Host Details:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 		<xsl:value-of select="/MetasploitV5/hosts/host/host_details" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
   </fo:table-body>
 </fo:table>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence> 
+
+<fo:page-sequence master-name="exploits" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Exploits Attempted
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -368,100 +374,105 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Exploited:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/exploited" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           User:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/username" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/module" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Port:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/port" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Protocol:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/proto" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Fail Reason:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-reason" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Fail Details:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-detail" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
 </xsl:for-each>
-
   </fo:table-body>
 </fo:table>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence> 
+
+<fo:page-sequence master-name="services" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Services found
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -484,60 +495,60 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="/MetasploitV5/hosts/host/services/service">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Service Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Port:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="port" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Protocol:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="proto" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           State:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="state" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Information:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="info" />
         </fo:block>
       </fo:table-cell>
@@ -550,14 +561,20 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </xsl:for-each>
 </fo:table-body>
 </fo:table>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence>
+
+<fo:page-sequence master-name="notes" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Notes About Scan
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -580,48 +597,48 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="/MetasploitV5/hosts/host/notes/note">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Note Type:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="ntype" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Critical:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="critical" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Seen:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="seen" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Data:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="data" />
         </fo:block>
       </fo:table-cell>
@@ -634,14 +651,20 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </xsl:for-each>
 </fo:table-body>
 </fo:table>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence>
+
+<fo:page-sequence master-name="vulnerabilities" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Vulnerabilities
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -664,48 +687,48 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="/MetasploitV5/hosts/host/vulns/vuln">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Vulnerability Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Vulnerability Information:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="info" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Vulnerability Attempts Count:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="vuln-attempt-count" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           CVE:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 	<xsl:for-each select="refs">
           <xsl:value-of select="ref" />
 	</xsl:for-each>
@@ -714,12 +737,12 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Vulnerability Details:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="vuln_details" />
         </fo:block>
       </fo:table-cell>
@@ -728,60 +751,60 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="vuln_attempts/vuln_attempt">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Exploited:
         </fo:block>
       </fo:table-cell>	
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">	
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
           <xsl:value-of select="exploited" />	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           User:
         </fo:block>
       </fo:table-cell>	
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">	
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
           <xsl:value-of select="username" />	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module:
         </fo:block>
       </fo:table-cell>	
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">	
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
           <xsl:value-of select="module" />	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Fail Reason:
         </fo:block>
       </fo:table-cell>	
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">	
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
           <xsl:value-of select="fail-reason" />	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Fail Details:
         </fo:block>
       </fo:table-cell>	
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">	
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
           <xsl:value-of select="fail-detail" />	
         </fo:block>
       	</fo:table-cell>
@@ -797,14 +820,21 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:table>
 
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence> 
+
 <xsl:if test="/MetasploitV5/module_details">
+<fo:page-sequence master-name="modules" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Modules
 </fo:block>
 
+<xsl:for-each select="/MetasploitV5/module_details/module_detail">
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -824,188 +854,184 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 
 <!-- Modules Info -->
 <fo:table-body>
-<xsl:for-each select="/MetasploitV5/module_details/module_detail">
+
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           File:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="file" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module Type:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="mtype" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Reference:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="refname" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Path Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="fullname" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Rank:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="rank" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Description:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="description" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Disclosure Date:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="disclosure-date" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Default Target:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="default-target" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Stance:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="stance" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module Author:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="module_authors/name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module References:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
-	<xsl:for-each select="/MetasploitV5/module_details/module_detail/module_refs">
-          <xsl:value-of select="name" />
-	</xsl:for-each>
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
+	  <xsl:value-of select="module_refs/name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module Interpreter:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/module_details/module_detail/module_archs/name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module Plataforms:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="/MetasploitV5/module_details/module_detail/module_platforms/name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module Targets:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
-	<xsl:for-each select="/MetasploitV5/module_details/module_detail/module_targets">
-          <xsl:value-of select="name" />
-	</xsl:for-each>
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
+	  <xsl:value-of select="module_targets/name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1014,21 +1040,26 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
        <fo:block/>
      </fo:table-cell>
     </fo:table-row>
-</xsl:for-each>
+
 </fo:table-body>
-<xsl:apply-templates/>
 </fo:table>
-</xsl:if>	
+</xsl:for-each>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence>
+</xsl:if>
 
 <xsl:if test="/MetasploitV5/web_sites">
+<fo:page-sequence master-name="webservers" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 <!-- Module WMAP -->
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Web Sites
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -1052,72 +1083,72 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Virtual Host:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="vhost" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Comments:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="comments" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Options:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="options" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Host:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="host" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Port:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="port" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           TLS:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="ssl" />
         </fo:block>
       </fo:table-cell>
@@ -1130,16 +1161,20 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     </fo:table-row>	
 </xsl:for-each>
 </fo:table-body>
-<xsl:apply-templates/>
 </fo:table>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence>
 
+<fo:page-sequence master-name="webpages" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Web Pages
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -1162,12 +1197,12 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="/MetasploitV5/web_pages">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Web Page:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="web_page" />
         </fo:block>
       </fo:table-cell>
@@ -1179,16 +1214,20 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     </fo:table-row>	
 </xsl:for-each>
 </fo:table-body>
-<xsl:apply-templates/>
 </fo:table>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence>
 
+<fo:page-sequence master-name="webforms" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Web Forms
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -1211,12 +1250,12 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="/MetasploitV5/web_forms">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Web Form:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="web_form" />
         </fo:block>
       </fo:table-cell>
@@ -1228,16 +1267,20 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     </fo:table-row>	
 </xsl:for-each>
 </fo:table-body>
-<xsl:apply-templates/>
 </fo:table>
+</fo:flow>
+<xsl:apply-templates/>
+</fo:page-sequence>
 
+<fo:page-sequence master-name="webvulns" master-reference="report">
+<fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
-<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="10pt">
+<fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
  Web Vulnerabilities
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table>
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
   <fo:table-column column-width="160mm"/>
     <fo:table-header>
@@ -1260,228 +1303,228 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="/MetasploitV5/web_vulns/web_vuln">
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Path:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="path" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Method:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="method" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Params:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="params" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Param Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="pname" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Risk:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="risk" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Name:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="name" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Query:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="query" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Category:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="category" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Confidence:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="confidence" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Description:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="description" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Blame:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="blame" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Request:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="request" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Proof:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="proof" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Owner:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="owner" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Payload:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="payload" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Vhost:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="vhost" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Host:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="host" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Port:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="port" />
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
     <fo:table-row>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt" font-weight="bold">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           TLS:
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block font-family="Helvetica" text-align="left" font-size="10pt">
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:value-of select="ssl" />
         </fo:block>
       </fo:table-cell>
@@ -1493,13 +1536,11 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     </fo:table-row>	
 </xsl:for-each>
 </fo:table-body>
-<xsl:apply-templates/>
 </fo:table>
-</xsl:if>
-
 </fo:flow>
 <xsl:apply-templates/>
-</fo:page-sequence> 
+</fo:page-sequence>
+</xsl:if>	
 
 </fo:root>
 </xsl:template>
