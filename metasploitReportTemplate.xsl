@@ -10,13 +10,16 @@ xsltproc template.xsl hostname.xml > hostname.fo
 apache-fop/bin/fop hostname.fo hostname.pdf -->
 <!-- Licence GPL -->
 
+<!-- Key for search which modules was used on this pentest -->
+<xsl:key name="keyModuleName" match="/MetasploitV5/module_details/module_detail" use="fullname" />
+
 <!-- Don't show other trash beyond what we want-->
 <xsl:template match="//*[@type='form']">
         <xsl:value-of select="name()"/>
 	</xsl:template>
 <xsl:template match="text()"/>
 
-<xsl:template match="/">	
+<xsl:template match="/">
 <fo:root>	
 
 <!-- Initial document layout -->
@@ -824,7 +827,10 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence> 
 
-<xsl:if test="/MetasploitV5/module_details">
+
+
+
+<xsl:if test="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
 <fo:page-sequence master-name="modules" master-reference="report">
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
@@ -832,7 +838,6 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
  Modules
 </fo:block>
 
-<xsl:for-each select="/MetasploitV5/module_details/module_detail">
 <!-- Data's header & footer -->
 <fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
   <fo:table-column column-width="40mm"/>
@@ -853,8 +858,11 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
   </fo:table-header>
 
 <!-- Modules Info -->
-<fo:table-body>
 
+<xsl:for-each select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
+<xsl:variable name="module_index" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt" />
+<xsl:for-each select = "key('keyModuleName', $module_index/module)">
+<fo:table-body>
     <fo:table-row>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
@@ -863,7 +871,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="file" />
+          <xsl:value-of select = "file"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -875,7 +883,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="mtype" />
+          <xsl:value-of select = "mtype"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -887,7 +895,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="refname" />
+          <xsl:value-of select = "refname"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -898,8 +906,8 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="fullname" />
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">       
+	  <xsl:value-of select = "fullname"/> 
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -911,7 +919,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="name" />
+          <xsl:value-of select = "name"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -923,7 +931,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="rank" />
+          <xsl:value-of select = "rank"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -935,7 +943,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="description" />
+          <xsl:value-of select = "description"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -947,7 +955,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="disclosure-date" />
+          <xsl:value-of select = "disclosure-date"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -959,7 +967,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="default-target" />
+          <xsl:value-of select = "default-target"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -971,7 +979,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="stance" />
+          <xsl:value-of select = "stance"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -983,7 +991,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="module_authors/name" />
+          <xsl:value-of select = "module_authors/name"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -994,8 +1002,8 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
         </fo:block>
       </fo:table-cell>
       <fo:table-cell>
-        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-	  <xsl:value-of select="module_refs/name" />
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	  
+	  <xsl:value-of select = "module_refs/name"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1007,7 +1015,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/module_details/module_detail/module_archs/name" />
+          <xsl:value-of select = "module_archs/name"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1019,7 +1027,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/module_details/module_detail/module_platforms/name" />
+          <xsl:value-of select = "module_platforms/name"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1031,7 +1039,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-	  <xsl:value-of select="module_targets/name" />
+	  <xsl:value-of select = "module_targets/name"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1042,12 +1050,14 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     </fo:table-row>
 
 </fo:table-body>
-</fo:table>
+</xsl:for-each> 
 </xsl:for-each>
+</fo:table>
 </fo:flow>
 <xsl:apply-templates/>
 </fo:page-sequence>
 </xsl:if>
+
 
 <xsl:if test="/MetasploitV5/web_sites">
 <fo:page-sequence master-name="webservers" master-reference="report">
@@ -1166,6 +1176,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence>
 
+<xsl:if test="/MetasploitV5/web_pages/web_page">
 <fo:page-sequence master-name="webpages" master-reference="report">
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
@@ -1218,7 +1229,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:flow>
 <xsl:apply-templates/>
 </fo:page-sequence>
+</xsl:if>
 
+<xsl:if test="/MetasploitV5/web_forms/web_form">
 <fo:page-sequence master-name="webforms" master-reference="report">
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
@@ -1271,7 +1284,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:flow>
 <xsl:apply-templates/>
 </fo:page-sequence>
+</xsl:if>
 
+<xsl:if test="/MetasploitV5/web_vulns/web_vuln">
 <fo:page-sequence master-name="webvulns" master-reference="report">
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
@@ -1540,6 +1555,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:flow>
 <xsl:apply-templates/>
 </fo:page-sequence>
+</xsl:if>
 </xsl:if>	
 
 </fo:root>
