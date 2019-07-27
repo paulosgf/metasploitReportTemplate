@@ -19,23 +19,54 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 	</xsl:template>
 <xsl:template match="text()"/>
 
+
+<!-- This allow the text fit into table's cell space -->
+<xsl:template match="text()[parent::entry]">
+    <xsl:call-template name="intersperse-with-zero-spaces">
+        <xsl:with-param name="str" select="."/>
+    </xsl:call-template>
+</xsl:template>
+<xsl:template name="intersperse-with-zero-spaces">
+    <xsl:param name="str"/>
+    <xsl:variable name="spacechars">
+        &#x9;&#xA;
+        &#x2000;&#x2001;&#x2002;&#x2003;&#x2004;&#x2005;
+        &#x2006;&#x2007;&#x2008;&#x2009;&#x200A;&#x200B;
+    </xsl:variable>
+
+    <xsl:if test="string-length($str) &gt; 0">
+        <xsl:variable name="c1" select="substring($str, 1, 1)"/>
+        <xsl:variable name="c2" select="substring($str, 2, 1)"/>
+
+        <xsl:value-of select="$c1"/>
+        <xsl:if test="$c2 != '' and
+            not(contains($spacechars, $c1) or
+            contains($spacechars, $c2))">
+            <xsl:text>&#x200B;</xsl:text>
+        </xsl:if>
+
+        <xsl:call-template name="intersperse-with-zero-spaces">
+            <xsl:with-param name="str" select="substring($str, 2)"/>
+        </xsl:call-template>
+    </xsl:if>
+</xsl:template>
+
 <xsl:template match="/">
 <fo:root>	
-
 <!-- Initial document layout -->
 <fo:layout-master-set>
     <fo:simple-page-master master-name="report"
-        page-height="28cm"
-        page-width="20cm"
+        page-height="297mm"
+        page-width="220mm"
         margin-top="1cm"
         margin-bottom="1cm"
         margin-left="1cm"
         margin-right="1cm">
-        <fo:region-body
-                margin-top="2cm"
-                margin-bottom="2cm" />
-	<fo:region-before extent="1.5cm"/>
-        <fo:region-after extent="1.5cm"/>
+  	  <fo:region-body   margin="1cm"/>
+	  <fo:region-before extent="2cm"/>
+	  <fo:region-after  extent="1cm"/>
+	  <fo:region-start  extent="2cm"/>
+	  <fo:region-end    extent="2cm"/>
     </fo:simple-page-master>
 
 <fo:page-sequence-master master-name="principal" master-reference="report">
@@ -79,9 +110,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -107,7 +138,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/created-at"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -119,7 +152,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/address" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/address"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -131,7 +166,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/mac" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/mac"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -143,7 +180,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/name" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -155,7 +194,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/state" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/state"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -167,7 +208,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/os-name" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/os-name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -179,7 +222,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/os-flavor" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/os-flavor"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -191,7 +236,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/os-sp" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/os-sp"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -203,7 +250,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/os-lang" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/os-lang"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -215,7 +264,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/arch" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/arch"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -227,7 +278,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/purpose" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/purpose"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -239,7 +292,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/info" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/info"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -251,7 +306,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/comments" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/comments"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -263,7 +320,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/virtual-host" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/virtual-host"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -275,7 +334,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/vuln-count" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/vuln-count"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -287,7 +348,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/service-count" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/service-count"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -299,7 +362,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/exploit-attempt-count" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit-attempt-count"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -311,7 +376,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/cred-count" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/cred-count"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -323,7 +390,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/os-family" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/os-family"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>    
@@ -335,7 +404,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-		<xsl:value-of select="/MetasploitV5/hosts/host/host_details" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/host_details"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -345,7 +416,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence> 
 
+<!-- Header -->
 <fo:page-sequence master-name="exploits" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
@@ -354,9 +440,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -383,7 +469,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/exploited" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/exploited"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -395,7 +483,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/username" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/username"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -407,7 +497,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/module" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/module"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -419,7 +511,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/port" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/port"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -431,7 +525,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/proto" />
+           <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/proto"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -443,7 +539,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-reason" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-reason"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -455,7 +553,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-detail" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-detail"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -466,7 +566,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence> 
 
+<!-- Header -->
 <fo:page-sequence master-name="services" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
@@ -475,9 +590,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -504,7 +619,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="name" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -516,7 +633,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="port" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="port"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -528,7 +647,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="proto" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="proto"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -540,7 +661,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="state" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="state"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -552,7 +675,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="info" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="info"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -568,7 +693,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence>
 
+<!-- Header -->
 <fo:page-sequence master-name="notes" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
@@ -577,9 +717,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -606,7 +746,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="ntype" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="ntype"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -618,7 +760,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="critical" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="critical"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -630,7 +774,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="seen" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="seen"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -642,7 +788,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="data" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="data"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -658,7 +806,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence>
 
+<!-- Header -->
 <fo:page-sequence master-name="vulnerabilities" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 
 <!-- Table title -->
@@ -667,9 +830,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -696,7 +859,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="name" />
+           <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -708,7 +873,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="info" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="info"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -720,7 +887,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="vuln-attempt-count" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="vuln-attempt-count"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -733,7 +902,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
 	<xsl:for-each select="refs">
-          <xsl:value-of select="ref" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="ref"/>
+	  </xsl:call-template>
 	</xsl:for-each>
         </fo:block>
       </fo:table-cell>
@@ -746,7 +917,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="vuln_details" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="vuln_details"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -760,7 +933,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>	
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
-          <xsl:value-of select="exploited" />	
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="exploited"/>
+	  </xsl:call-template>	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
@@ -772,7 +947,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>	
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
-          <xsl:value-of select="username" />	
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="username"/>
+	  </xsl:call-template>	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
@@ -784,7 +961,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>	
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
-          <xsl:value-of select="module" />	
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="module"/>
+	  </xsl:call-template>	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
@@ -796,7 +975,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>	
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
-          <xsl:value-of select="fail-reason" />	
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="fail-reason"/>
+	  </xsl:call-template>	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
@@ -808,7 +989,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>	
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
-          <xsl:value-of select="fail-detail" />	
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="fail-detail"/>
+	  </xsl:call-template>	
         </fo:block>
       	</fo:table-cell>
     </fo:table-row>
@@ -827,11 +1010,23 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence> 
 
-
-
-
 <xsl:if test="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
+<!-- Header -->
 <fo:page-sequence master-name="modules" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
 <fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
@@ -839,9 +1034,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -861,6 +1056,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 
 <xsl:for-each select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
 <xsl:variable name="module_index" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt" />
+<!-- using key to search modules info -->
 <xsl:for-each select = "key('keyModuleName', $module_index/module)">
 <fo:table-body>
     <fo:table-row>
@@ -871,7 +1067,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "file"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="file"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -883,7 +1081,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "mtype"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="mtype"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -895,7 +1095,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "refname"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="refname"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -907,7 +1109,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">       
-	  <xsl:value-of select = "fullname"/> 
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="fullname"/>
+	  </xsl:call-template> 
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -919,7 +1123,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "name"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -931,7 +1137,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "rank"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="rank"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -943,7 +1151,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "description"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="description"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -955,7 +1165,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "disclosure-date"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="disclosure-date"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -967,7 +1179,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "default-target"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="default-target"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -979,7 +1193,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "stance"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="stance"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -991,7 +1207,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "module_authors/name"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="module_authors/name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1003,7 +1221,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	  
-	  <xsl:value-of select = "module_refs/name"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="module_refs/name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1015,7 +1235,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "module_archs/name"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="module_archs/name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1027,7 +1249,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select = "module_platforms/name"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="module_platforms/name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1039,7 +1263,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-	  <xsl:value-of select = "module_targets/name"/>
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="module_targets/name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1060,7 +1286,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 
 
 <xsl:if test="/MetasploitV5/web_sites">
+<!-- Header -->
 <fo:page-sequence master-name="webservers" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 <!-- Module WMAP -->
 <!-- Table title -->
@@ -1069,9 +1310,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -1099,7 +1340,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="vhost" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="vhost"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1111,7 +1354,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="comments" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="comments"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1123,7 +1368,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="options" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="options"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1135,7 +1382,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="host" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="host"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1147,7 +1396,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="port" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="port"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1159,7 +1410,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="ssl" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="ssl"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1177,7 +1430,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:page-sequence>
 
 <xsl:if test="/MetasploitV5/web_pages/web_page">
+<!-- Header -->
 <fo:page-sequence master-name="webpages" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
 <fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
@@ -1185,9 +1453,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -1214,7 +1482,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="web_page" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="web_page"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1232,7 +1502,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </xsl:if>
 
 <xsl:if test="/MetasploitV5/web_forms/web_form">
+<!-- Header -->
 <fo:page-sequence master-name="webforms" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
 <fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
@@ -1240,9 +1525,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -1269,7 +1554,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="web_form" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="web_form"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1287,7 +1574,22 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </xsl:if>
 
 <xsl:if test="/MetasploitV5/web_vulns/web_vuln">
+<!-- Header -->
 <fo:page-sequence master-name="webvulns" master-reference="report">
+<fo:static-content flow-name="xsl-region-before">
+      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+	      <xsl:value-of select="/MetasploitV5/hosts/host/created-at" />
+	<xsl:apply-templates/>
+      </fo:block>
+</fo:static-content>
+
+<!-- Footer -->
+<fo:static-content flow-name="xsl-region-after">
+     <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
+         <fo:page-number />
+     </fo:block>
+</fo:static-content>
+
 <fo:flow flow-name="xsl-region-body">
 <!-- Table title -->
 <fo:block font-family="Helvetica" text-align="center" font-size="12pt" font-weight="bold" space-before="9pt">
@@ -1295,9 +1597,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:block>
 
 <!-- Data's header & footer -->
-<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true">
+<fo:table table-omit-header-at-break="true" table-omit-footer-at-break="true" table-layout="fixed" width="100%">
   <fo:table-column column-width="40mm"/>
-  <fo:table-column column-width="160mm"/>
+  <fo:table-column column-width="140mm"/>
     <fo:table-header>
      <fo:table-row>
       <fo:table-cell>
@@ -1324,7 +1626,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="path" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="path"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1336,7 +1640,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="method" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="method"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1348,7 +1654,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="params" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="params"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1360,7 +1668,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="pname" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="pname"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1372,7 +1682,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="risk" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="risk"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1384,7 +1696,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="name" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="name"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1396,7 +1710,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="query" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="query"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1408,7 +1724,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="category" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="category"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1420,7 +1738,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="confidence" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="confidence"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1432,7 +1752,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="description" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="description"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1444,7 +1766,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="blame" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="blame"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1456,7 +1780,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="request" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="request"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1468,7 +1794,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="proof" />
+           <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="proof"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1480,7 +1808,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="owner" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="owner"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1492,7 +1822,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="payload" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="payload"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1504,7 +1836,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="vhost" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="vhost"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1516,7 +1850,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="host" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="host"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1528,7 +1864,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="port" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="port"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1540,7 +1878,9 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-          <xsl:value-of select="ssl" />
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="ssl"/>
+	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
@@ -1557,7 +1897,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </fo:page-sequence>
 </xsl:if>
 </xsl:if>	
-
 </fo:root>
+
 </xsl:template>
 </xsl:stylesheet>
