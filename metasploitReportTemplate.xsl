@@ -942,20 +942,6 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     <fo:table-row>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
-          User:
-        </fo:block>
-      </fo:table-cell>	
-      <fo:table-cell>
-        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
-          <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="username"/>
-	  </xsl:call-template>	
-        </fo:block>
-      	</fo:table-cell>
-    </fo:table-row>
-    <fo:table-row>
-      <fo:table-cell>
-        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
           Module:
         </fo:block>
       </fo:table-cell>	
@@ -996,11 +982,42 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       	</fo:table-cell>
     </fo:table-row>
     <fo:table-row>
+      <fo:table-cell>
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
+          User:
+        </fo:block>
+      </fo:table-cell>	
+      <fo:table-cell>
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="username"/>
+	  </xsl:call-template>	
+        </fo:block>
+      	</fo:table-cell>
+    </fo:table-row>
+</xsl:for-each>
+
+<!-- Include passwords found on brute force scan -->
+    <fo:table-row>
+      <fo:table-cell>
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
+          Passord:
+        </fo:block>
+      </fo:table-cell>	
+      <fo:table-cell>
+        <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">	
+          <xsl:call-template name="intersperse-with-zero-spaces">
+    	    <xsl:with-param name="str" select="vuln_attempts/password"/>
+	  </xsl:call-template>	
+        </fo:block>
+      	</fo:table-cell>
+    </fo:table-row>
+    <fo:table-row>
      <fo:table-cell padding-before="0.5cm">
        <fo:block/>
      </fo:table-cell>
     </fo:table-row>	
-</xsl:for-each>
+
 </xsl:for-each>
 </fo:table-body>
 <xsl:apply-templates/>
