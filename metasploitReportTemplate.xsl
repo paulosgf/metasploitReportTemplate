@@ -924,7 +924,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
     </fo:table-row>
 
-
+  <xsl:for-each select="vuln_attempts/vuln_attempt">
     <fo:table-row>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
@@ -1016,6 +1016,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
        <fo:block/>
      </fo:table-cell>
     </fo:table-row>	
+</xsl:for-each>
 
 </xsl:for-each>
 </fo:table-body>
