@@ -1302,7 +1302,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 </xsl:if>
 
 
-<xsl:if test="/MetasploitV5/web_sites">
+<xsl:if test="/MetasploitV5/web_sites/*">
 <!-- Header -->
 <fo:page-sequence master-name="webservers" master-reference="report">
 <fo:static-content flow-name="xsl-region-before">
