@@ -425,6 +425,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:block>
 </fo:static-content>
 
+<xsl:if test="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/*">
 <!-- Footer -->
 <fo:static-content flow-name="xsl-region-after">
      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
@@ -460,7 +461,19 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 
 <!-- Service found x module executed -->
 <fo:table-body>
-<xsl:for-each select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
+
+<!-- for each child node tests if child of parent's node is equal this, and if it is, jump to next children -->
+<xsl:for-each select="MetasploitV5/hosts/host/exploit_attempts">
+<xsl:for-each select="exploit_attempt">
+<xsl:if test="(vuln-id != preceding-sibling::exploit_attempt[1]/vuln-id) or position()=1">
+
+<xsl:message>
+	ANTERIOR
+	<xsl:value-of select="preceding-sibling::exploit_attempt[1]/vuln-id"/>
+	ATUAL
+	<xsl:value-of select="vuln-id" />
+</xsl:message>
+
     <fo:table-row>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
@@ -470,7 +483,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/exploited"/>
+    	    <xsl:with-param name="str" select="exploited"/>
 	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
@@ -484,7 +497,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/username"/>
+    	    <xsl:with-param name="str" select="username"/>
 	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
@@ -498,7 +511,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/module"/>
+    	    <xsl:with-param name="str" select="module"/>
 	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
@@ -512,7 +525,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/port"/>
+    	    <xsl:with-param name="str" select="port"/>
 	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
@@ -526,7 +539,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
            <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/proto"/>
+    	    <xsl:with-param name="str" select="proto"/>
 	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
@@ -540,7 +553,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-reason"/>
+    	    <xsl:with-param name="str" select="fail-reason"/>
 	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
@@ -554,16 +567,26 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
           <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt/fail-detail"/>
+    	    <xsl:with-param name="str" select="fail-detail"/>
 	  </xsl:call-template>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
+    <fo:table-row>
+      <fo:table-cell padding-before="0.5cm">
+        <fo:block/>
+      </fo:table-cell>
+    </fo:table-row>
+
+</xsl:if>
 </xsl:for-each>
-  </fo:table-body>
+
+</xsl:for-each>
+</fo:table-body>
 </fo:table>
 </fo:flow>
 <xsl:apply-templates/>
+</xsl:if>
 </fo:page-sequence> 
 
 <!-- Header -->
