@@ -466,14 +466,6 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:for-each select="MetasploitV5/hosts/host/exploit_attempts">
 <xsl:for-each select="exploit_attempt">
 <xsl:if test="(vuln-id != preceding-sibling::exploit_attempt[1]/vuln-id) or position()=1">
-
-<xsl:message>
-	ANTERIOR
-	<xsl:value-of select="preceding-sibling::exploit_attempt[1]/vuln-id"/>
-	ATUAL
-	<xsl:value-of select="vuln-id" />
-</xsl:message>
-
     <fo:table-row>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
@@ -1050,6 +1042,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence> 
 
+<xsl:if test="/MetasploitV5/module_details/module_detail/*">
 <xsl:if test="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
 <!-- Header -->
 <fo:page-sequence master-name="modules" master-reference="report">
@@ -1323,7 +1316,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence>
 </xsl:if>
-
+</xsl:if>
 
 <xsl:if test="/MetasploitV5/web_sites/*">
 <!-- Header -->
