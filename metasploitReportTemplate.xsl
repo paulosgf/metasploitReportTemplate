@@ -940,6 +940,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
     </fo:table-row>
 
   <xsl:for-each select="vuln_attempts/vuln_attempt">
+    <xsl:if test="(module != preceding-sibling::vuln_attempt[1]/module) or position()=1">
     <fo:table-row>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt" font-weight="bold">
@@ -1030,7 +1031,8 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
      <fo:table-cell padding-before="0.5cm">
        <fo:block/>
      </fo:table-cell>
-    </fo:table-row>	
+    </fo:table-row>
+    </xsl:if>	
 </xsl:for-each>
 
 </xsl:for-each>
@@ -1042,6 +1044,7 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
 <xsl:apply-templates/>
 </fo:page-sequence> 
 
+<!-- Metasploit's team had droped out module info support -->
 <xsl:if test="/MetasploitV5/module_details/module_detail/*">
 <xsl:if test="/MetasploitV5/hosts/host/exploit_attempts/exploit_attempt">
 <!-- Header -->
