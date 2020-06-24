@@ -830,6 +830,8 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:block>
 </fo:static-content>
 
+<!-- new line variabe to fit CVE's cell -->
+<xsl:variable name="newline"><xsl:text>&#xa;</xsl:text></xsl:variable>
 <!-- Footer -->
 <fo:static-content flow-name="xsl-region-after">
      <fo:block font-family="Helvetica" font-size="8pt" text-align="center">
@@ -916,10 +918,11 @@ apache-fop/bin/fop hostname.fo hostname.pdf -->
       </fo:table-cell>
       <fo:table-cell>
         <fo:block wrap-option="wrap" font-family="Helvetica" text-align="left" font-size="9pt">
-	<xsl:for-each select="refs">
+	<xsl:for-each select="refs/ref">
           <xsl:call-template name="intersperse-with-zero-spaces">
-    	    <xsl:with-param name="str" select="ref"/>
-	  </xsl:call-template>
+            <!-- concatenate CVE's lines with new line char -->
+            <xsl:with-param name="str" select="concat(., $newline)" />
+	        </xsl:call-template>
 	</xsl:for-each>
         </fo:block>
       </fo:table-cell>
